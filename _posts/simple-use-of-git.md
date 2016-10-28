@@ -6,6 +6,25 @@ tags:
 	- Git
 ---
 
+执行git init，git add以及git commit之后，需要如下做：
+### …or create a new repository on the command line
+
+```
+echo "# simpleEditor" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/ycwang522/simpleEditor.git
+git push -u origin master
+```
+
+### …or push an existing repository from the command line
+
+```
+git remote add origin https://github.com/ycwang522/simpleEditor.git
+git push -u origin master
+```
+
 # Git使用教程
 
 - 设置用户名：`git config --global user.name "Your Name Here"`  
