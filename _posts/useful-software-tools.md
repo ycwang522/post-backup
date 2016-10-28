@@ -34,6 +34,8 @@ tags:
 
 ![Visual studio 2013 插件配置](https://ituku.tk/di/PUSHK/2.jpg)
 
+- visualstudio 2013新插件：developer assistant
+
 # chrome浏览器插件总结
 
 ### 书签整理：Xmarks

@@ -741,7 +741,223 @@ int main()
 
 
 ```
+
+# 7. 统计每个月兔子的总数
+
+题目描述
+
+> 有一只兔子，从出生后第3个月起每个月都生一只兔子，小兔子长到第三个月后每个月又生一只兔子，假如兔子都不死，问每个月的兔子总数为多少？
+ 
+
+ 
+
+输入描述:
+> 输入int型表示month
+
+
+输出描述:
+> 输出兔子总数int型
+
+输入例子:
+> 9
+
+输出例子:
+> 34
+
+思路分析：
+	归纳总结出递归
+
+
+```cpp
+#include<iostream>
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+int NumberOfRabbits(int N)
+{
+    if(N<=0)
+        cout<<"Error Input!"<<endl;
+    int num[2]={1,1};
+    if(N<=2)
+        return num[N-1];
+    else
+        return NumberOfRabbits(N-1) + NumberOfRabbits(N-2);
+        
+}
+
+int main()
+{
+    int Number;
+    while(cin>>Number)
+    {
+        cout << NumberOfRabbits(Number)<<endl;
+    }
+    return 0;
+}
+```
+# 8. 求小球落地5次后所经历的路程和第5次反弹的高度
+
+题目描述
+
+> 假设一个球从任意高度自由落下，每次落地后反跳回原高度的一半; 再落下, 求它在第5次落地时，共经历多少米?第5次反弹多高？ 
+ 
+ 
+ 
+
+输入描述:
+> 输入起始高度，int型
+
+
+输出描述:
+> 分别输出第5次落地时，共经过多少米第5次反弹多高
+
+输入例子:
+> 1
+
+输出例子:
+> 2.875
+0.03125
+
+思路分析：
+	第n次反弹的高度为double H = height*pow(0.5, n);	//第五次反弹的高度
 	
+代码：
+```cpp
+#include<iostream>
+#include<cmath>
+
+using namespace std;
+
+void HeightOfBall(double height)
+{
+	double sum = 0;
+	double H = height*pow(0.5, 5);	//第五次反弹的高度
+	for (int i = 0; i < 5; i++)
+	{
+		sum = sum + height*pow(0.5, i) * 2 ;	//用每次的高度乘以2
+		//在最后的结果中再减去一个初始高度
+	}
+	cout << sum - height << endl;
+	cout << H << endl;
+}
+
+int main()
+{
+	double height;
+	while (cin >> height)
+	{
+		HeightOfBall(height);
+	}
+	return 0;
+}
+```
+# 9. 字符串匹配（字符匹配）
+
+题目描述
+
+题目标题：
+判断短字符串中的<font color="red">所有字符是否在长字符串中全部出现</font>
+
+输入描述:
+> 输入两个字符串。第一个为短字符，第二个为长字符。
+
+
+输出描述:
+> 返回值：
+
+输入例子:
+> bc
+abc
+
+输出例子:
+> true
+
+思路分析
+
+	注意理解本题目的意思，判断短字符串中的字符是否全部在长字符串中出现
+	是单个的字符匹配，而不是字符串匹配。
+	假设两个字符串分别为ShortStr，LongStr
+	不能使用Longstr.find(ShortStr)==string::npos的方法来判断
+	
+	不过可以遍历短字符串中的每个字符
+	利用string.find()函数查找是否对应出现
+
+```cpp
+#include<string>
+#include<iostream>
+using namespace std;
+
+bool PiPei(string ShortStr, string LongStr)
+{
+	for (string::size_type i = 0; i < ShortStr.size(); i++)	//遍历短串中的每个字符
+	{
+		if (LongStr.find(ShortStr[i]) == string::npos)	//如果其中一个在长串中不存在，则返回，并输出false
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+int main()
+{
+	string str1, str2;
+	while (cin>>str1>>str2)
+	{
+		if (PiPei(str1, str2))
+			cout << "true" << endl;
+		else
+			cout << "false" << endl;
+	}
+	return 0;
+}
+```
+
+# 10. 数组中出现次数超过一半的数字
+
+题目描述
+
+> 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。
+
+思路分析：
+	
+	map<key,value>imap中的key和value分别表示关键词以及其对应的值。
+	在本题中，遍历vector中的值，将其一个个存入map，如果之前没有则新加入map，如果之前有则对value进行++操作
+	遍历vector中的数组，有imap[numbers[i]]++
+	遍历完毕之后，map中的key表示关键词，而value则表示的是关键词出现的数量。
+	只要it->second大于长度的一半即输出it->first
+
+代码示例：
+
+```cpp
+int MoreThanHalfNum_Solution(vector<int> numbers) 
+    {
+       if (numbers.empty())
+		return 0;
+        map<int,int>imap;
+        int len = numbers.size();
+        for(int i=0;i<len;i++)
+        {
+            imap[numbers[i]]++;	//将numbers中的值存入imap
+        }
+        
+        map<int,int>::iterator it;
+        for(it=imap.begin();it!=imap.end();++it)
+        {
+            if(it->second > len/2)
+                return it->first;
+        }
+        return 0;
+    }
+```
+
+
+
+	
+
+
 
 
 	
